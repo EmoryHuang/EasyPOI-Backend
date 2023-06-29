@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.huang.easypoi.mapper.CheckinMapper">
+    <insert id="addCheckin" parameterType="org.huang.easypoi.bean.CheckinBean">
+        INSERT INTO checkins(openid, timestamp, time, latitude, longitude, address, formatted, adInfo)
+        VALUES (#{openid}, #{timestamp}, #{time}, #{latitude}, #{longitude}, #{address}, #{formatted}, #{adInfo})
+    </insert>
+
+    <select id="getCheckinNum" resultType="Long">
+        SELECT COUNT(*)
+        FROM checkins
+        WHERE openid = #{openid}
+    </select>
+
+    <select id="getRecentCheckins">
+        SELECT *
+        FROM checkins
+        WHERE openid = #{openid}
+        ORDER BY timestamp DESC
+            LIMIT #{num}
+    </select>
+</mapper>
